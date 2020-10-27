@@ -1,9 +1,11 @@
 <template>
 <div>
     <Nav />
-    <div class="container">
+    <section class="main">
+        <div class="container">
 
-    </div>
+        </div>
+    </section>
 </div>
 </template>
 
@@ -12,5 +14,7 @@ export default {}
 </script>
 
 <style>
-
+.main {
+    height: 1200px;
+}
 </style>
