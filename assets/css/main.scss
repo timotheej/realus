@@ -10,16 +10,32 @@ body {
     font-family:'Fira Sans', sans-serif;
 }
 
+h1 {
+    @apply text-6xl;
+}
+
+h2 {
+    @apply text-5xl;
+}
+
+h3 {
+    @apply text-4xl;
+}
 
 .btn {
-    @apply rounded-md;
+    @apply rounded-md font-normal;
 
     &--small {
-        @apply py-4 px-6;
+        @apply py-3 px-6;
+    }
+
+    &--large {
+        @apply py-4 px-12;
     }
 
     &--primary {
         background: $primary-color;
+        transition: .3s;
 
         &:hover {
             background: lighten($primary-color, 5%);
@@ -28,9 +44,20 @@ body {
 
     &--secondary {
         background: $secondary-color;
+        transition: .3s;
 
         &:hover {
             background: lighten($secondary-color, 5%);
         }
+    }
+
+    &--darky {
+        background: $dark-color;
+        color: white;
+        transition: .3s;
+
+        &:hover {
+            background: lighten($dark-color, 5%);
+        }       
     }
 }
