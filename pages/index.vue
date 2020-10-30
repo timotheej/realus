@@ -20,7 +20,9 @@
 </template>
 
 <script>
-export default {}
+export default {
+
+}
 </script>
 
 <style lang="scss">
@@ -50,7 +52,7 @@ export default {}
         background-repeat: no-repeat;
         background-position: bottom;
         background-size: contain;
-        height: 100%;
+        height: calc(100% + .1rem);
         width: 100%;
         z-index: -1;
     }

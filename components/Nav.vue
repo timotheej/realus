@@ -1,5 +1,5 @@
 <template>
-<nav class="nav">
+<nav class="nav" :class="{'headroom--unpinned': scrolled, 'bg-white': addBackground}" v-on="handleScroll">
     <div class="container nav__container">
         <div class="nav__logo divide-x">
             <div class="nav__img">
@@ -36,16 +36,35 @@
 export default {
     data() {
         return {
-            menu: false,
-            items: [{
-                title: 'Contact',
-                href: '#contact'
-            }],
+            limitPosition: 100,
+            scrolled: false,
+            lastPosition: 0,
+            addBackground: false,
         }
     },
+    methods: {
+        handleScroll() {
+            if (this.lastPosition < window.scrollY && this.limitPosition < window.scrollY) {
+                this.scrolled = true;
+                this.addBackground = true;
+            }
 
-    watch: {
+            if (this.lastPosition > window.scrollY) {
+                this.scrolled = false;
+            }
 
+            if (window.scrollY < this.limitPosition) {
+                this.addBackground = false;
+            }
+
+            this.lastPosition = window.scrollY;
+        }
+    },
+    created() {
+        window.addEventListener("scroll", this.handleScroll);
+    },
+    destroyed() {
+        window.removeEventListener("scroll", this.handleScroll);
     }
 }
 </script>
@@ -54,7 +73,9 @@ export default {
 @import "~/assets/css/main.scss";
 
 .nav {
-    @apply z-50;
+    @apply z-50 fixed w-full;
+    will-change: transform;
+    transition: transform 200ms linear;
 
     &__container {
         @apply flex flex-row items-center justify-between mx-auto h-20 px-4;
@@ -124,6 +145,14 @@ export default {
         width: 100%;
         top: 5rem;
     }
+}
+
+.headroom--pinned {
+    transform: translateY(0%);
+}
+
+.headroom--unpinned {
+    transform: translateY(-100%);
 }
 
 @keyframes appear {
