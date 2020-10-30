@@ -35,8 +35,7 @@ export default {
     z-index: 0;
 
     &__contain {
-        @apply mx-auto flex items-center;
-        height: calc(100% - 12rem);
+        @apply mx-auto flex items-center h-full;
     }
 
     &__content {
