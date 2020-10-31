@@ -2,7 +2,7 @@
 <div>
     <header class="header">
         <Nav />
-        <div class="header__contain container">
+        <div class="header__contain container px-4">
             <div class="header__content">
                 <h1 class="font-light text-white leading-none">Découvre qui tu es <span class="font-medium">réellement</span></h1>
                 <span class="text-white text-lg font-light mt-4 block">Compare toi, améliore tes relations</span>
@@ -12,8 +12,47 @@
         </div>
     </header>
     <section class="main">
-        <div class="container">
+        <div class="container mx-auto">
+            <div class="flex flex-col items-center my-12 mx-4">
+                <span class="uppercase text-xs font-semibold color-primary tracking-wide">Découvre qui tu es</span>
+                <h2 class="font-medium text-center leading-none mt-2">Comment ça fonctionne ?</h2>
+            </div>
+        </div>
+        <div class="container mx-auto">
+            <div class="px-4">
+                <div class="flex -mx-2 flex-wrap lg:flex-no-wrap">
+                    <div class="flex w-full sm:w-full md:w-1/3 lg:w-2/5 xl:w-2/6 px-4">
+                        <div class="flex flex-col rounded-md shadow-xl py-6 px-4">
+                            <div class="rounded-full h-16 w-16 flex items-center justify-center" style="background: #E3ECFF">
+                                <fa :icon="['fa', 'question']" class="text-3xl color-secondary" />
+                            </div>
 
+                            <h5 class="font-medium my-4 leading-none">Une liste de 50 questions</h5>
+                            <p class="text-sm text-gray-700 font-normal">Répond à une série de questions afin de connaître au mieux ta personnalité et pouvoir te créer un profil adéquat.</p>
+                        </div>
+                    </div>
+                    <div class="flex w-full sm:w-full md:w-1/3 lg:w-2/5 xl:w-2/6 px-4">
+                        <div class="flex flex-col rounded-md shadow-xl py-6 px-4">
+                            <div class="rounded-full h-16 w-16 flex items-center justify-center" style="background: #E3ECFF">
+                                <fa :icon="['fa', 'clipboard-list']" class="text-3xl color-secondary" />
+                            </div>
+
+                            <h5 class="font-medium my-4 leading-none">Tests de personnalités</h5>
+                            <p class="text-sm text-gray-700 font-normal">Le système est basé sur les plus grands tests de personnalité tels que le MBTI, Big Fives,..</p>
+                        </div>
+                    </div>
+                    <div class="flex w-full sm:w-full md:w-1/3 lg:w-2/5 xl:w-2/6 px-4">
+                        <div class="flex flex-col rounded-md shadow-xl py-6 px-4">
+                            <div class="rounded-full h-16 w-16 flex items-center justify-center" style="background: #E3ECFF">
+                                <fa :icon="['fa', 'sync']" class="text-3xl color-secondary" />
+                            </div>
+
+                            <h5 class="font-medium my-4 leading-none">Compare toi aux autres</h5>
+                            <p class="text-sm text-gray-700 font-normal">Compare toi aux autres et découvrez vos points communs, ce qui fait votre force et faiblesses.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </div>

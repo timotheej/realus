@@ -33,7 +33,7 @@ export default {
         imports: [
           {
             set: "@fortawesome/fontawesome-free-solid",
-            icons: ["faBars"]
+            icons: ["faBars", "faQuestion", "faClipboardList", "faSync"]
           }
         ]
       }
