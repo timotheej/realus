@@ -28,7 +28,7 @@
                             </div>
 
                             <h5 class="font-medium my-4 leading-none">Une liste de 50 questions</h5>
-                            <p class="text-sm text-gray-700 font-normal">Répond à une série de questions afin de connaître au mieux ta personnalité et pouvoir te créer un profil adéquat.</p>
+                            <p class="text-sm text-gray-600 font-normal">Répond à une série de questions afin de connaître au mieux ta personnalité et pouvoir te créer un profil adéquat.</p>
                         </div>
                     </div>
                     <div class="flex w-full sm:w-full md:w-1/3 lg:w-2/5 xl:w-2/6 px-4">
@@ -38,7 +38,7 @@
                             </div>
 
                             <h5 class="font-medium my-4 leading-none">Tests de personnalités</h5>
-                            <p class="text-sm text-gray-700 font-normal">Le système est basé sur les plus grands tests de personnalité tels que le MBTI, Big Fives,..</p>
+                            <p class="text-sm text-gray-600 font-normal">Le système est basé sur les plus grands tests de personnalité tels que le MBTI, Big Fives,..</p>
                         </div>
                     </div>
                     <div class="flex w-full sm:w-full md:w-1/3 lg:w-2/5 xl:w-2/6 px-4">
@@ -48,10 +48,29 @@
                             </div>
 
                             <h5 class="font-medium my-4 leading-none">Compare toi aux autres</h5>
-                            <p class="text-sm text-gray-700 font-normal">Compare toi aux autres et découvrez vos points communs, ce qui fait votre force et faiblesses.</p>
+                            <p class="text-sm text-gray-600 font-normal">Compare toi aux autres et découvrez vos points communs, ce qui fait votre force et faiblesses.</p>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="mt-20 sm:mt-20 md:mt-48 lg:mt-48 xl:mt-48 flex flex-row">
+            <div class="w-0 sm:w-0 md:w-1/5 lg:w-2/5 xl:w-2/5"></div>
+            <div class="w-full sm:w-full md:w-4/5 lg:w-3/5 xl:w-3/5 h-auto flex py-24" style="background-color:#040C31; border-top-left-radius: 6rem;">
+                <div class="w-1/12 sm:w-1/12 md:w-4/12 lg:w-3/12 xl:w-3/12 phone"></div>
+                <div class="w-10/12 sm:w-10/12 md:w-6/12 lg:w-6/12 xl:w-5/12">
+                    <h2 class="font-medium text-left leading-none text-white mb-10">À propos</h2>
+                    <p class="leading-none text-white text-sm font-light my-4"><strong>Realus</strong> est une application en développement et en constante évolution, plus nous auront de données plus nous serons en mesure de te founir une expérience fiable</p>
+                    <p class="leading-none text-white text-sm font-light my-4"><strong>Realus</strong> n’est pas un simple test de personnalité, de nouvelles fonctionnalités sont à prévoir, reste informé</p>
+
+                    <ul class="list-style">
+                        <li>Un système unique</li>
+                        <li>Test totalement gratuit</li>
+                        <li>Un système unique</li>
+                        <li>Test totalement gratuit</li>
+                    </ul>
+                </div>
+                <div class="w-1/12 sm:w-1/12 md:w-2/12 lg:w-3/12 xl:w-4/12"></div>
             </div>
         </div>
     </section>
@@ -108,6 +127,39 @@ export default {
 }
 
 .main {
-    height: 1200px;
+
+    min-height: 1200px;
+
+    .phone {
+        @apply relative;
+
+        &::before {
+            display: block;
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -7.5rem;
+            background-image: url('~assets/images/phone.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            height: 32rem;
+            width: 15rem;
+
+            @media (max-width: 768px) {
+                display: none;
+            }
+        }
+    }
+
+    .list-style {
+        @apply text-white text-sm mt-10;
+        list-style: none;
+
+        li {
+            @apply font-light my-2 pl-8;
+            background-image: url('~assets/images/bullet.svg');
+            background-repeat: no-repeat;
+        }
+    }
 }
 </style>
