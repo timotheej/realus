@@ -4,8 +4,22 @@
         <Nav />
     </div>
     <div class="container mx-auto rounded-md flex flex-col shadow-2xl p-6 -m-16 z-20 bg-white">
-        <button class="btn btn--large btn--darky" @click="startQuestionnaire" :disabled="isDisabled">Commencer</button>
-        <button class="btn" @click="nextQuestion">Next</button>
+        <div v-if="questionnaireState" class="flex mb-2 h-32">
+            <div class="w-2/6 flex justify-center items-center">
+                <div class="leading-none text-center">{{ currentQuestionObj.A }}</div>
+            </div>
+            <div class="w-4/6 flex items-center flex-col mb-4">
+                <div class="text-2xl font-bold">{{ currentQuestionObj.title }}</div>
+                <div></div>
+            </div>
+            <div class="w-2/6 flex justify-center items-center">
+                <div class="leading-none text-center">{{ currentQuestionObj.B }}</div>
+            </div>
+        </div>
+        <button v-if="!isDisabled" class="btn btn--large btn--darky" @click="startQuestionnaire">Commencer</button>
+        <div class="flex justify-end">
+            <button v-if="isDisabled" class="btn btn--small btn--secondary" @click="nextQuestion">Suivant</button>
+        </div>
     </div>
 </div>
 </template>
@@ -18,8 +32,8 @@ export default {
                     "id": "5f9ea8c9df233730330f76f2",
                     "title": "A une fête, tu préfères",
                     "responses": {
-                        "E": "Intéragir avec tous le monde, y compris des inconnus",
-                        "I": "Intéragir avec quelqu'un que tu connais"
+                        "A": "Intéragir avec tous le monde, y compris des inconnus",
+                        "B": "Intéragir avec quelqu'un que tu connais"
                     },
                     "group": 1
                 },
@@ -27,16 +41,23 @@ export default {
                     "id": "5f9eac23df233730330f7798",
                     "title": "Dans les fêtes, tu es plutôt",
                     "responses": {
-                        "E": "Celui qui reste tard avec une énergie croissante",
-                        "I": "Celui qui part tôt avec moins d'énergie"
+                        "A": "Celui qui reste tard avec une énergie croissante",
+                        "B": "Celui qui part tôt avec moins d'énergie"
                     },
                     "group": 1
                 }
             ],
-            arrNumbers: [],
+            arrOfIds: [],
+            questionnaireState: false,
             disabled: false,
             currentQuestionId: "",
-            currentQuestionObj: []
+            currentQuestionObj: {
+                id: null,
+                title: null,
+                A: null,
+                B: null,
+                group: null
+            }
         }
     },
 
@@ -44,44 +65,52 @@ export default {
         async startQuestionnaire() {
             //generate new array of all questions
             this.questions.forEach((elm, index) => {
-                this.arrNumbers.push(elm.id);
+                this.arrOfIds.push(elm.id);
             })
 
+            console.log('length arr ' + this.arrOfIds.length)
+
             this.disabled = true;
+            this.questionnaireState = true;
             await this.selectQuestion(this.randomizeNumber());
-            console.log('check 1')
             await this.currentQuestion();
-            console.log('check 2')
+
+            console.log('length arr ' + this.arrOfIds.length)
         },
 
         randomizeNumber() {
             // randomize id in array
-            const random = Math.floor(Math.random() * this.arrNumbers.length);
-            return random, this.arrNumbers[random]
+            const random = Math.floor(Math.random() * this.arrOfIds.length);
+            return random, this.arrOfIds[random]
         },
 
         async selectQuestion(elm) {
-            const index = this.arrNumbers.indexOf(elm);
+            const index = this.arrOfIds.indexOf(elm);
             this.currentQuestionId = elm;
-
             if (index > -1) {
-                this.arrNumbers.splice(index, 1);
+                this.arrOfIds.splice(index, 1);
             }
-            console.log('elm ' + elm)
         },
 
-        nextQuestion: function () {
-            this.selectQuestion(this.randomizeNumber());
+        async nextQuestion() {
+            await this.selectQuestion(this.randomizeNumber());
+            await this.currentQuestion();
+
+            console.log('length arr ' + this.arrOfIds.length)
+
+            console.log('arrOfIds 2 ' + this.arrOfIds)
         },
 
         async currentQuestion() {
             this.questions.forEach((elm, index) => {
                 if (elm.id === this.currentQuestionId) {
-                    let data = {
-                        "id": elm.id,
-                        "title": elm.title,
+                    this.currentQuestionObj = {
+                        id: elm.id,
+                        title: elm.title,
+                        A: elm.responses.A,
+                        B: elm.responses.B,
+                        group: elm.group
                     }
-                    this.currentQuestionObj.push(data)
                 }
             });
 
