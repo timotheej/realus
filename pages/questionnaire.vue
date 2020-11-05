@@ -4,43 +4,45 @@
         <Nav />
     </div>
     <div class="container mx-auto rounded-md flex flex-col shadow-2xl p-6 -m-16 z-20 bg-white">
-        <div v-if="questionnaireState" class="flex mb-2 h-32">
-            <div class="w-2/6 flex justify-center items-center">
-                <div class="leading-none text-center">{{ currentQuestionObj.A }}</div>
-            </div>
-            <div class="w-4/6 flex items-center flex-col mb-4">
-                <div class="text-2xl font-bold">{{ currentQuestionObj.title }}</div>
-                <div class="mt-6 flex">
-                    <label class="questionnaire-radio">
-                        <input name="selectValue" type="radio" value="1" v-model="selectValue">
-                        <div class="checkmark"></div>
-                    </label>
-                    <label class="questionnaire-radio">
-                        <input name="selectValue" type="radio" value="2" v-model="selectValue">
-                        <div class="checkmark"></div>
-                    </label>
-                    <label class="questionnaire-radio">
-                        <input name="selectValue" type="radio" value="3" v-model="selectValue">
-                        <div class="checkmark"></div>
-                    </label>
-                    <label class="questionnaire-radio">
-                        <input name="selectValue" type="radio" value="4" v-model="selectValue">
-                        <div class="checkmark"></div>
-                    </label>
-                    <label class="questionnaire-radio">
-                        <input name="selectValue" type="radio" value="5" v-model="selectValue">
-                        <div class="checkmark"></div>
-                    </label>
+        <div v-if="questionnaireState" class="flex flex-col mb-2 h-32">
+            <div class="text-2xl font-bold text-center">{{ currentQuestionObj.title }}</div>
+            <div class="flex flex-row">
+                <div class="w-2/6 flex justify-center items-center">
+                    <div class="leading-none text-center">{{ currentQuestionObj.A }}</div>
                 </div>
-                {{ selectValue }}
-            </div>
-            <div class="w-2/6 flex justify-center items-center">
-                <div class="leading-none text-center">{{ currentQuestionObj.B }}</div>
+                <div class="w-2/6 flex items-center flex-col mb-4">
+                    <div class="mt-6 flex items-center flex-row">
+                        <label class="questionnaire-radio h-8 w-8">
+                            <input name="selectValue" type="radio" value="1" v-model="selectValue">
+                            <div class="checkmark"></div>
+                        </label>
+                        <label class="questionnaire-radio h-6 w-6">
+                            <input name="selectValue" type="radio" value="2" v-model="selectValue">
+                            <div class="checkmark"></div>
+                        </label>
+                        <label class="questionnaire-radio h-5 w-5">
+                            <input name="selectValue" type="radio" value="3" v-model="selectValue">
+                            <div class="checkmark"></div>
+                        </label>
+                        <label class="questionnaire-radio h-6 w-6">
+                            <input name="selectValue" type="radio" value="4" v-model="selectValue">
+                            <div class="checkmark"></div>
+                        </label>
+                        <label class="questionnaire-radio h-8 w-8">
+                            <input name="selectValue" type="radio" value="5" v-model="selectValue">
+                            <div class="checkmark"></div>
+                        </label>
+                    </div>
+                </div>
+                <div class="w-2/6 flex justify-center items-center">
+                    <div class="leading-none text-center">{{ currentQuestionObj.B }}</div>
+                </div>
             </div>
         </div>
-        <button v-if="!isDisabled" class="btn btn--large btn--darky" @click="getQuestion">Commencer</button>
+        <button v-if="!isDisabled" class="btn btn--large btn--darky" @click="startQuestionnaire">Commencer</button>
         <div class="flex justify-end">
-            <button v-if="isDisabled" class="btn btn--small btn--secondary" @click="getQuestion">Suivant</button>
+            <button v-if="isDisabled && !beforeLastQuestion" class="btn btn--small btn--secondary" @click="nextQuestion">Suivant</button>
+            <button v-if="beforeLastQuestion" class="btn btn--small btn--darky">Terminer</button>
         </div>
     </div>
 </div>
@@ -80,26 +82,48 @@ export default {
                 B: null,
                 group: null
             },
-            selectValue: ""
+            selectValue: null,
+            beforeLast: false,
+            results: [{
+                "id": null,
+                "user_id": null,
+                "questions": []
+            }]
         }
     },
 
     methods: {
-        async getQuestion() {
-            if (this.arrOfIds.length == 0) {
-                await this.generateQuestions();
-                this.disabled = true;
-                this.questionnaireState = true;
-            }
+        async nextQuestion() {
+            await this.pushCurrentQuestion();
+
+            this.selectValue = null;
             await this.selectQuestion(this.randomizeNumber());
             await this.currentQuestion();
         },
 
-        async generateQuestions() {
-            //generate new array of all questions
+        async pushCurrentQuestion() {
+            const vm = this;
+
+            this.results.forEach(function (elm) {
+                let data = {
+                    question_id: vm.currentQuestionObj.id,
+                    response: vm.selectValue,
+                    group: vm.currentQuestionObj.group
+                }
+                elm.questions.push(data);
+            })
+        },
+
+        async startQuestionnaire() {
+            // generate array of all questions
             this.questions.forEach((elm, index) => {
                 this.arrOfIds.push(elm.id);
             })
+            this.disabled = true;
+            this.questionnaireState = true;
+
+            await this.selectQuestion(this.randomizeNumber());
+            await this.currentQuestion();
         },
 
         randomizeNumber() {
@@ -128,17 +152,20 @@ export default {
                     }
                 }
             });
-
-            console.log('this current Q ' + JSON.stringify(this.currentQuestionObj))
         }
     },
     computed: {
         isDisabled: function () {
             return this.disabled;
+        },
+        beforeLastQuestion: function () {
+            if (this.arrOfIds.length == 0 && this.questionnaireState == true) {
+                return this.beforeLast = true;
+            }
         }
     },
     mounted() {
-        console.log('hey')
+
     }
 }
 </script>
@@ -155,8 +182,8 @@ $radioActive: #5D9BFB;
     display: block;
     cursor: pointer;
     position: relative;
-    height: $radioSize;
-    width: $radioSize;
+    /*     height: $radioSize;
+    width: $radioSize; */
 
     input {
         display: none;
@@ -179,22 +206,22 @@ $radioActive: #5D9BFB;
     }
 
     .checkmark {
-        height: $radioSize;
-        width: $radioSize;
+        height: 100%;
+        width: 100%;
         display: block;
         position: absolute;
         top: 0;
         left: 0;
 
         &:not(:empty) {
-            padding-left: $radioSize + 8;
+            padding-left: 100% + 8;
         }
 
         &:before,
         &:after {
             content: '';
-            width: $radioSize;
-            height: $radioSize;
+            width: 100%;
+            height: 100%;
             display: block;
             border-radius: 50%;
             left: 0;
