@@ -52,25 +52,7 @@
 export default {
     data() {
         return {
-            questions: [{
-                    "id": "5f9ea8c9df233730330f76f2",
-                    "title": "A une fête, tu préfères",
-                    "responses": {
-                        "A": "Intéragir avec tous le monde, y compris des inconnus",
-                        "B": "Intéragir avec quelqu'un que tu connais"
-                    },
-                    "group": 1
-                },
-                {
-                    "id": "5f9eac23df233730330f7798",
-                    "title": "Dans les fêtes, tu es plutôt",
-                    "responses": {
-                        "A": "Celui qui reste tard avec une énergie croissante",
-                        "B": "Celui qui part tôt avec moins d'énergie"
-                    },
-                    "group": 1
-                }
-            ],
+            questions: [],
             arrOfIds: [],
             questionnaireState: false,
             disabled: false,
