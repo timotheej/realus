@@ -1,54 +1,51 @@
 <template>
 <div>
-    <div class="h-56" style="background-color: #4560EB">
-        <Nav />
-        <div class="container mx-auto pt-24 pl-4">
-            <h2 class="text-white font-medium">Test de personnalité gratuit</h2>
-        </div>
-    </div>
-    <div class="container mx-auto rounded-md flex flex-col shadow-2xl p-6 -m-16 z-20 bg-white">
+    <HeaderPage header-title="Test de personnalité gratuit" />
+
+    <div class="container mx-auto rounded-md flex flex-col shadow-2xl p-8 -m-16 z-20 bg-white">
         <div v-if="loading" id="loading" class="h-20 w-20 m-auto"></div>
-        <transition name="fade">
-            <div v-if="testState" class="flex flex-col mb-2">
-                <div class="text-2xl font-bold text-center">{{ currentQuestionObj.title }}</div>
-                <div class="flex flex-row">
-                    <div class="w-2/6 flex justify-center items-center">
-                        <div class="leading-none text-center">{{ currentQuestionObj.A }}</div>
-                    </div>
-                    <div class="w-2/6 flex items-center flex-col mb-4">
-                        <div class="mt-6 flex items-center flex-row">
-                            <label class="test-radio h-8 w-8">
-                                <input name="selectValue" type="radio" value="1" v-model="selectValue">
-                                <div class="checkmark"></div>
-                            </label>
-                            <label class="test-radio h-6 w-6">
-                                <input name="selectValue" type="radio" value="2" v-model="selectValue">
-                                <div class="checkmark"></div>
-                            </label>
-                            <label class="test-radio h-5 w-5">
-                                <input name="selectValue" type="radio" value="3" v-model="selectValue">
-                                <div class="checkmark"></div>
-                            </label>
-                            <label class="test-radio h-6 w-6">
-                                <input name="selectValue" type="radio" value="4" v-model="selectValue">
-                                <div class="checkmark"></div>
-                            </label>
-                            <label class="test-radio h-8 w-8">
-                                <input name="selectValue" type="radio" value="5" v-model="selectValue">
-                                <div class="checkmark"></div>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="w-2/6 flex justify-center items-center">
-                        <div class="leading-none text-center">{{ currentQuestionObj.B }}</div>
+        <div v-if="testState" class="flex flex-col">
+            <div class="text-2xl font-bold text-center leading-none">{{ currentQuestionObj.title }}</div>
+            <div class="flex flex-wrap my-8 lg:my-6">
+                <div class="w-full md:w-full lg:w-2/6 xl:w-2/6 flex justify-center items-center">
+                    <div class="leading-none text-center">{{ currentQuestionObj.A }}</div>
+                </div>
+                <div class="w-full md:w-full lg:w-2/6 xl:w-2/6 flex items-center flex-col mb-4">
+                    <div class="mt-6 flex items-center flex-col lg:flex-row">
+                        <label class="test-radio h-8 w-8">
+                            <input name="selectValue" type="radio" value="1" v-model="selectValue">
+                            <div class="checkmark"></div>
+                        </label>
+                        <label class="test-radio h-6 w-6">
+                            <input name="selectValue" type="radio" value="2" v-model="selectValue">
+                            <div class="checkmark"></div>
+                        </label>
+                        <label class="test-radio h-5 w-5">
+                            <input name="selectValue" type="radio" value="3" v-model="selectValue">
+                            <div class="checkmark"></div>
+                        </label>
+                        <label class="test-radio h-6 w-6">
+                            <input name="selectValue" type="radio" value="4" v-model="selectValue">
+                            <div class="checkmark"></div>
+                        </label>
+                        <label class="test-radio h-8 w-8">
+                            <input name="selectValue" type="radio" value="5" v-model="selectValue">
+                            <div class="checkmark"></div>
+                        </label>
                     </div>
                 </div>
-                <div class="flex justify-end">
-                    <button v-if="isDisabled && !beforeLastQuestion && !loading" class="btn btn--small btn--secondary" @click="nextQuestion">Suivant</button>
-                    <button v-if="beforeLastQuestion" class="btn btn--small btn--darky">Terminer</button>
+                <div class="w-full md:w-full lg:w-2/6 xl:w-2/6 flex justify-center items-center">
+                    <div class="leading-none text-center">{{ currentQuestionObj.B }}</div>
                 </div>
             </div>
-        </transition>
+            <div class="flex justify-end">
+                <button v-if="isDisabled && !beforeLastQuestion && !loading" class="btn btn--small btn--secondary" @click="nextQuestion">Suivant
+                    <fa :icon="['fa', 'angle-right']" class="ml-1 text-base" />
+                </button>
+                <button v-if="beforeLastQuestion" class="btn btn--small btn--darky">Terminer</button>
+            </div>
+        </div>
+
         <div class="flex justify-center" v-if="!isDisabled">
             <button class="btn btn--large btn--darky" @click="startTest">Commencer le test</button>
         </div>
@@ -57,15 +54,21 @@
 </template>
 
 <script>
+import {
+    mapActions,
+    mapGetters
+} from 'vuex'
 export default {
+    layout: 'default',
+
     data() {
         return {
+            pageTitle: 'Test de personnalité gratuit',
             loading: false,
             questions: [],
             arrOfIds: [],
             testState: false,
             disabled: false,
-            currentTestId: "",
             currentQuestionId: "",
             currentQuestionObj: {
                 _id: null,
@@ -90,8 +93,8 @@ export default {
                     this.arrOfIds.push(elm._id);
                 });
                 // create empty test
-                const create = await this.$axios.$post('http://localhost:3100/t/createTest');
-                this.currentTestId = create._id;
+                await this.$store.dispatch('test/createTest');
+
                 return 'success'
             } catch (e) {
                 this.loading = false;
@@ -123,7 +126,7 @@ export default {
             this.testState = false;
 
             try {
-                const pushQuestion = await this.$axios.$put('http://localhost:3100/t/pushResponse/' + this.currentTestId, {
+                const pushQuestion = await this.$axios.$put('http://localhost:3100/t/pushResponse/' + this.getTestId, {
                     question_id: this.currentQuestionObj._id,
                     response: this.selectValue,
                     group: this.currentQuestionObj.group
@@ -189,8 +192,12 @@ export default {
             if (this.arrOfIds.length == 0 && this.testState == true) {
                 return this.beforeLast = true;
             }
-        }
+        },
+        ...mapGetters({
+            getTestId: 'test/getTestId',
+        })
     },
+
     mounted() {
 
     }
@@ -203,19 +210,6 @@ export default {
 $radioSize: 22px;
 $radioBorder: #D1D7E3;
 $radioActive: $secondary-color;
-
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity .5s;
-}
-
-.fade-enter,
-.fade-leave-to
-
-/* .fade-leave-active below version 2.1.8 */
-    {
-    opacity: 0;
-}
 
 .test-radio {
     margin: 16px 16px;

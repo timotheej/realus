@@ -33,7 +33,14 @@ export default {
         imports: [
           {
             set: "@fortawesome/fontawesome-free-solid",
-            icons: ["faBars", "faQuestion", "faClipboardList", "faSync"]
+            icons: [
+              "faBars",
+              "faQuestion",
+              "faClipboardList",
+              "faSync",
+              "faChevronRight",
+              "faAngleRight"
+            ]
           }
         ]
       }
@@ -49,7 +56,7 @@ export default {
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
   loading: {
-    color: "#040C31",
-    height: "5px"
+    color: "white",
+    height: "4px"
   }
 };
