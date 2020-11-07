@@ -7,7 +7,7 @@
                 <h1 class="font-light text-white leading-none">Découvre qui tu es <span class="font-medium">réellement</span></h1>
                 <span class="text-white text-lg font-light mt-4 block">Compare toi, améliore tes relations</span>
 
-                <NuxtLink to="/questionnaire" class="btn btn--large btn--darky mt-12 inline-block">Commence maintenant</NuxtLink>
+                <NuxtLink to="/test" class="btn btn--large btn--darky mt-12 inline-block">Commence maintenant</NuxtLink>
             </div>
         </div>
     </header>
