@@ -42,7 +42,7 @@
                 <button v-if="isDisabled && !beforeLastQuestion && !loading" class="btn btn--small btn--secondary" @click="nextQuestion">Suivant
                     <fa :icon="['fa', 'angle-right']" class="ml-1 text-base" />
                 </button>
-                <button v-if="beforeLastQuestion" class="btn btn--small btn--darky">Terminer</button>
+                <button v-if="beforeLastQuestion" @click="lastQuestion" class="btn btn--small btn--darky">Terminer</button>
             </div>
         </div>
 
@@ -115,6 +115,16 @@ export default {
                 this.testState = false;
             }
             this.selectValue = null;
+        },
+
+        async lastQuestion() {
+            const pushQuestion = await this.pushCurrentQuestion();
+
+            if (pushQuestion == 'success') {
+                this.$router.push({
+                    path: '/test/result'
+                })
+            }
         },
 
         async pushCurrentQuestion() {
@@ -191,13 +201,9 @@ export default {
         },
         ...mapGetters({
             getTestId: 'test/getTestId',
-            getAllQuestions: 'test/getAllQuestions'
+            getAllQuestions: 'test/getAllQuestions',
         })
     },
-
-    mounted() {
-
-    }
 }
 </script>
 
@@ -213,8 +219,6 @@ $radioActive: $secondary-color;
     display: block;
     cursor: pointer;
     position: relative;
-    /*     height: $radioSize;
-    width: $radioSize; */
 
     input {
         display: none;

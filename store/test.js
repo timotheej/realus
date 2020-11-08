@@ -3,7 +3,7 @@ export const state = () => ({
   test: {
     id: null,
     user_id: null,
-    questions: []
+    responses: []
   },
   questions: []
 });
@@ -11,7 +11,33 @@ export const state = () => ({
 // getters
 export const getters = {
   getTestId: state => state.test.id,
-  getAllQuestions: state => state.questions
+  getTestResult: state => state.test,
+  getAllQuestions: state => state.questions,
+  checkTest: state => {
+    // count element of test responses array
+    let counterTest = 0;
+    let arrTest = state.test.responses;
+    for (let i = 0; i < arrTest.length; i++) {
+      counterTest++;
+    }
+
+    // count element of total questions
+    let counterQuestions = 0;
+    let arrQuestions = state.questions;
+    for (let i = 0; i < arrQuestions.length; i++) {
+      counterQuestions++;
+    }
+
+    //compare
+    if (
+      counterTest === counterQuestions &&
+      counterTest + counterQuestions != 0
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 };
 
 // mutations
@@ -22,9 +48,9 @@ export const mutations = {
   ALL_QUESTIONS: (state, response) => {
     state.questions = response;
   },
-  PUSH_QUESTION: (state, response) => {
+  PUSH_QUESTION: (state, { response, data }) => {
     let questionsArr = state.test.responses;
-    questionsArr.push(response);
+    questionsArr.push(data);
   }
 };
 
@@ -51,6 +77,6 @@ export const actions = {
         group: data.group
       }
     );
-    commit("PUSH_QUESTION", response);
+    commit("PUSH_QUESTION", { response, data });
   }
 };
