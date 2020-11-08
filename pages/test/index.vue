@@ -65,7 +65,6 @@ export default {
         return {
             pageTitle: 'Test de personnalité gratuit',
             loading: false,
-            questions: [],
             arrOfIds: [],
             testState: false,
             disabled: false,
@@ -86,15 +85,13 @@ export default {
         async getQuestions() {
             // get all questions of database
             try {
-                const result = await this.$axios.$get('http://localhost:3100/q');
-                this.questions = result;
+                await this.$store.dispatch('test/getAllQuestions');
                 // push all ids questions
-                this.questions.forEach((elm, index) => {
+                this.getAllQuestions.forEach((elm, index) => {
                     this.arrOfIds.push(elm._id);
                 });
                 // create empty test
                 await this.$store.dispatch('test/createTest');
-
                 return 'success'
             } catch (e) {
                 this.loading = false;
@@ -124,9 +121,8 @@ export default {
             this.loading = true;
             this.disabled = true;
             this.testState = false;
-
             try {
-                const pushQuestion = await this.$axios.$put('http://localhost:3100/t/pushResponse/' + this.getTestId, {
+                await this.$store.dispatch('test/pushQuestion', {
                     question_id: this.currentQuestionObj._id,
                     response: this.selectValue,
                     group: this.currentQuestionObj.group
@@ -171,7 +167,7 @@ export default {
         },
 
         async currentQuestion() {
-            this.questions.forEach((elm, index) => {
+            this.getAllQuestions.forEach((elm, index) => {
                 if (elm._id === this.currentQuestionId) {
                     this.currentQuestionObj = {
                         _id: elm._id,
@@ -195,6 +191,7 @@ export default {
         },
         ...mapGetters({
             getTestId: 'test/getTestId',
+            getAllQuestions: 'test/getAllQuestions'
         })
     },
 
