@@ -1,5 +1,5 @@
 <template>
-<nav class="nav" :class="[sticked ? 'sticked' : 'noSticked', scrolled ? 'onScroll': '']" v-on="handleScroll">
+<nav class="nav" :class="[sticked ? 'sticked' : 'noSticked', scrolled ? 'onScroll': '']" v-on="handleScroll()">
     <div class="nav__wrapper">
         <div class="container nav__container">
             <div class="nav__logo divide-x">
@@ -24,11 +24,11 @@
                 </div>
             </div>
 
-            <div class="nav__toggle lg:hidden" @click="menu = !menu">
+            <div class="nav__toggle lg:hidden">
                 <fa :icon="['fas', 'bars']" class="text-3xl text-white" />
             </div>
 
-            <div class="nav__mobile" v-if="menu">
+            <div class="nav__mobile hidden">
 
             </div>
         </div>

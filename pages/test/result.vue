@@ -17,8 +17,44 @@ export default {
     layout: 'default',
     middleware: 'test',
 
+    data() {
+        return {
+
+        }
+    },
+
+    methods: {
+        calculTrendByGroup(groupId) {
+            const byGroup = this.getTestResult.responses.filter(({
+                group
+            }) => group === groupId);
+
+            const sum = byGroup.reduce(function (accumulator, currentValue) {
+                return accumulator + parseInt(currentValue.response);
+            }, 0);
+
+            let numberOfQuestion = Object.keys(byGroup).length;
+
+            let average = sum / numberOfQuestion;
+
+            let max = (5 * numberOfQuestion) / numberOfQuestion;
+            let min = (1 * numberOfQuestion) / numberOfQuestion;
+            let mid = (3 * numberOfQuestion) / numberOfQuestion;
+
+            if (average < mid) {
+                return 'A'
+            } else if (average > mid) {
+                return 'B'
+            } else if (average == mid) {
+                return 'N'
+            } else {
+                return 'E'
+            }
+        }
+    },
+
     mounted() {
-        console.log("result " + JSON.stringify(this.getTestResult))
+        this.calculTrendByGroup(2)
     },
 
     computed: mapGetters({
