@@ -7,7 +7,7 @@
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo corporis quas ipsum a at! Deserunt vel illum necessitatibus repudiandae illo adipisci debitis, nam harum voluptatem, perferendis, explicabo tempora earum a?</p>
         </div>
         <div class="w-full sm:w-full md:w-6/12 lg:w-6/12 xl:w-6/12 rounded-md bg-gray-100 p-4">
-            <PersonnalityType v-for="group in groups" :key="group.id" :typeA="group.typeA" :typeB="group.typeB" :avg="group.avg" :color="group.color"></PersonnalityType>
+            <PersonnalityTypeBar v-for="group in groups" :key="group.id" :typeA="group.typeA" :typeB="group.typeB" :avg="group.avg" :color="group.color"></PersonnalityTypeBar>
         </div>
     </div>
 </div>
@@ -77,21 +77,6 @@ export default {
 
             // averages the sums (multiple by 20 to have a result out of 100)
             return ((sum / numberOfQuestion) * 20);
-
-            // calcul the min / max and mid
-            /*             let max = ((5 * numberOfQuestion) / numberOfQuestion) * 20;
-                        let min = ((1 * numberOfQuestion) / numberOfQuestion) * 20;
-                        let mid = ((3 * numberOfQuestion) / numberOfQuestion) * 20; */
-
-            /* if (average < mid) {
-                return 'A'
-            } else if (average > mid) {
-                return 'B'
-            } else if (average == mid) {
-                return 'N'
-            } else {
-                return 'E'
-            } */
         },
 
         async pushAvg() {
@@ -117,8 +102,6 @@ export default {
     async mounted() {
         await this.pushAvg();
         await this.mostImportantType();
-
-        console.log('this group ' + JSON.stringify(this.groups))
     },
 
     computed: mapGetters({

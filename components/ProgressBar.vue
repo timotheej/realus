@@ -14,7 +14,7 @@ export default {
     props: {
         color: {
             type: String,
-            default: "blue"
+            default: "gray"
         },
         bgColor: {
             type: String,

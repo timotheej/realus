@@ -24,15 +24,15 @@
                             <input name="selectValue" type="radio" value="2" v-model="selectValue">
                             <div class="checkmark"></div>
                         </label>
-                        <label class="test-radio h-5 w-5">
+                        <label class="test-radio h-6 w-6">
                             <input name="selectValue" type="radio" value="3" v-model="selectValue">
                             <div class="checkmark"></div>
                         </label>
-                        <label class="test-radio h-6 w-6">
+                        <label class="test-radio h-8 w-8">
                             <input name="selectValue" type="radio" value="4" v-model="selectValue">
                             <div class="checkmark"></div>
                         </label>
-                        <label class="test-radio h-8 w-8">
+                        <label class="test-radio h-10 w-10">
                             <input name="selectValue" type="radio" value="5" v-model="selectValue">
                             <div class="checkmark"></div>
                         </label>
