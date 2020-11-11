@@ -1,5 +1,5 @@
 <template>
-<div class="w-full h-2 relative overflow-hidden" :class="[`bg-${bgColor}-500`,{'rounded-full': rounded}, { indeterminate: indeterminate}]">
+<div class="w-full h-2 relative overflow-hidden" :class="[`bg-${bgColor}-500`,{'rounded-md': rounded}, { indeterminate: indeterminate}]">
     <div class="h-full progressbar" :class="[`bg-${color}-500`, {'absolute top-0': indeterminate}]" role="progressbar" :style="{width: `${percentage}%`}" :aria-valuenow="percentage" aria-valuemin="0" aria-valuemax="100">
         <span class="flex items-center h-full">
             <slot></slot>

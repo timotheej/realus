@@ -3,6 +3,7 @@
     <HeaderPage header-title="Test de personnalité gratuit" />
 
     <div class="container mx-auto rounded-md flex flex-col shadow-2xl p-8 -m-16 z-20 bg-white">
+        <ProgressBar v-if="isDisabled" :percentage="contentProgress" :color="'green'" class="mb-8 h-4"></ProgressBar>
         <div v-if="loading" id="loading" class="h-20 w-20 m-auto"></div>
         <div v-if="testState" class="flex flex-col">
             <div class="text-2xl font-bold text-center leading-none">{{ currentQuestionObj.title }}</div>
@@ -49,10 +50,6 @@
                 <button v-if="beforeLastQuestion" @click="lastQuestion" class="btn btn--small btn--darky">Terminer</button>
             </div>
         </div>
-
-        <div class="flex justify-center" v-if="!isDisabled">
-            <button class="btn btn--large btn--darky" @click="startTest">Commencer le test</button>
-        </div>
     </div>
 </div>
 </template>
@@ -82,6 +79,9 @@ export default {
             },
             selectValue: null,
             beforeLast: false,
+            percentageStart: 0,
+            stepProgress: 0,
+            contentProgress: 0,
         }
     },
 
@@ -94,6 +94,10 @@ export default {
                 this.getAllQuestions.forEach((elm, index) => {
                     this.arrOfIds.push(elm._id);
                 });
+
+                // setup a progress step
+                this.stepProgress = 100 / this.arrOfIds.length;
+
                 // create empty test
                 await this.$store.dispatch('test/createTest');
                 return 'success'
@@ -192,6 +196,9 @@ export default {
                     }
                 }
             });
+
+            // add to progress bar
+            this.contentProgress += this.stepProgress;
         }
     },
     computed: {
@@ -208,6 +215,14 @@ export default {
             getAllQuestions: 'test/getAllQuestions',
         })
     },
+
+    watch: {
+
+    },
+
+    async mounted() {
+        await this.startTest()
+    }
 }
 </script>
 

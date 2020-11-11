@@ -27,8 +27,8 @@
                                 <fa :icon="['fa', 'question']" class="text-3xl color-secondary" />
                             </div>
 
-                            <h5 class="font-medium my-4 leading-none">Une liste de 50 questions</h5>
-                            <p class="text-sm text-gray-600 font-normal">Répond à une série de questions afin de connaître au mieux ta personnalité et pouvoir te créer un profil adéquat.</p>
+                            <h5 class="font-medium my-4 leading-none">70 questions sur ta personnalité</h5>
+                            <p class="text-sm text-gray-600 font-normal">Réponds à une série de questions afin de connaître au mieux ta personnalité et pouvoir te créer un profil adéquat.</p>
                         </div>
                     </div>
                     <div class="flex w-full sm:w-full md:w-1/3 lg:w-2/5 xl:w-2/6 px-4">
@@ -37,8 +37,8 @@
                                 <fa :icon="['fa', 'clipboard-list']" class="text-3xl color-secondary" />
                             </div>
 
-                            <h5 class="font-medium my-4 leading-none">Tests de personnalités</h5>
-                            <p class="text-sm text-gray-600 font-normal">Le système est basé sur les plus grands tests de personnalité tels que le MBTI, Big Fives,..</p>
+                            <h5 class="font-medium my-4 leading-none">Test de personnalité</h5>
+                            <p class="text-sm text-gray-600 font-normal">Le système est pour le moment basé en majeure partie sur le très célèbre MBTI®.</p>
                         </div>
                     </div>
                     <div class="flex w-full sm:w-full md:w-1/3 lg:w-2/5 xl:w-2/6 px-4">
@@ -47,8 +47,8 @@
                                 <fa :icon="['fa', 'sync']" class="text-3xl color-secondary" />
                             </div>
 
-                            <h5 class="font-medium my-4 leading-none">Compare toi aux autres</h5>
-                            <p class="text-sm text-gray-600 font-normal">Compare toi aux autres et découvrez vos points communs, ce qui fait votre force et faiblesses.</p>
+                            <h5 class="font-medium my-4 leading-none">Compare-toi aux autres</h5>
+                            <p class="text-sm text-gray-600 font-normal">Compare-toi aux autres et découvres vos points communs, ce qui fait votre force et faiblesses.</p>
                         </div>
                     </div>
                 </div>
@@ -60,14 +60,14 @@
                 <div class="w-1/12 sm:w-1/12 md:w-4/12 lg:w-3/12 xl:w-3/12 phone"></div>
                 <div class="w-10/12 sm:w-10/12 md:w-6/12 lg:w-6/12 xl:w-5/12">
                     <h2 class="font-medium text-left leading-none text-white mb-10">À propos</h2>
-                    <p class="leading-none text-white text-sm font-light my-4"><strong>Realus</strong> est une application en développement et en constante évolution, plus nous auront de données plus nous serons en mesure de te founir une expérience fiable</p>
-                    <p class="leading-none text-white text-sm font-light my-4"><strong>Realus</strong> n’est pas un simple test de personnalité, de nouvelles fonctionnalités sont à prévoir, reste informé</p>
+                    <p class="leading-none text-white text-sm font-light my-4"><strong>Realus</strong> est actuellement en cours de développement, c'est une application web qui permet pour le moment de réaliser un test de personnalité.</p>
+                    <p class="leading-none text-white text-sm font-light my-4">Des fonctionnalités viendront s'ajouter au fur et à mesure et à terme, rencontrer des gens qui nous correspondent !</p>
 
                     <ul class="list-style">
                         <li>Un système unique</li>
                         <li>Test totalement gratuit</li>
-                        <li>Un système unique</li>
-                        <li>Test totalement gratuit</li>
+                        <li class="opacity-50">Compare-toi aux autres <i>(en développement)</i></li>
+                        <li class="opacity-50">Rencontre des gens qui te correspondent <i>(en développement)</i></li>
                     </ul>
                 </div>
                 <div class="w-1/12 sm:w-1/12 md:w-2/12 lg:w-3/12 xl:w-4/12"></div>
