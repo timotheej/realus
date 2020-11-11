@@ -12,6 +12,10 @@
                 </div>
                 <div class="w-full md:w-full lg:w-2/6 xl:w-2/6 flex items-center flex-col mb-4">
                     <div class="mt-6 flex items-center flex-col lg:flex-row">
+                        <label class="test-radio h-10 w-10">
+                            <input name="selectValue" type="radio" value="0" v-model="selectValue">
+                            <div class="checkmark"></div>
+                        </label>
                         <label class="test-radio h-8 w-8">
                             <input name="selectValue" type="radio" value="1" v-model="selectValue">
                             <div class="checkmark"></div>
