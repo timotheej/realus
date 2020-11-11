@@ -2,8 +2,13 @@
 <div>
     <HeaderPage header-title="Résultat du test de personnalité" />
 
-    <div class="container mx-auto rounded-md flex flex-col shadow-2xl p-8 -m-16 z-20 bg-white">
-
+    <div class="container mx-auto rounded-md flex flex-row shadow-2xl p-8 -m-16 z-20 bg-white">
+        <div class="w-full sm:w-full md:w-6/12 lg:w-6/12 xl:w-6/12 p-4">
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo corporis quas ipsum a at! Deserunt vel illum necessitatibus repudiandae illo adipisci debitis, nam harum voluptatem, perferendis, explicabo tempora earum a?</p>
+        </div>
+        <div class="w-full sm:w-full md:w-6/12 lg:w-6/12 xl:w-6/12 rounded-md bg-gray-200 p-4">
+            <PersonnalityType v-for="group in groups" :key="group.id" :typeA="group.typeA" :typeB="group.typeB" :avg="group.avg"></PersonnalityType>
+        </div>
     </div>
 </div>
 </template>
@@ -19,29 +24,58 @@ export default {
 
     data() {
         return {
-
+            groups: [{
+                    id: 1,
+                    avg: Number,
+                    typeA: "Extraverti",
+                    typeB: "Introverti"
+                },
+                {
+                    id: 2,
+                    avg: Number,
+                    typeA: "Sensation",
+                    typeB: "Intuition"
+                },
+                {
+                    id: 3,
+                    avg: Number,
+                    typeA: "Pensée",
+                    typeB: "Sentiment"
+                },
+                {
+                    id: 4,
+                    avg: Number,
+                    typeA: "Jugement",
+                    typeB: "Perception"
+                }
+            ]
         }
     },
 
     methods: {
-        calculTrendByGroup(groupId) {
+        calculAvgByGroup(groupId) {
+            //filter all responses by group
             const byGroup = this.getTestResult.responses.filter(({
                 group
             }) => group === groupId);
 
+            // calculate the sum of the group
             const sum = byGroup.reduce(function (accumulator, currentValue) {
                 return accumulator + parseInt(currentValue.response);
             }, 0);
 
+            // count the number of questions
             let numberOfQuestion = Object.keys(byGroup).length;
 
-            let average = sum / numberOfQuestion;
+            // averages the sums (multiple by 20 to have a result out of 100)
+            return (sum / numberOfQuestion) * 20;
 
-            let max = (5 * numberOfQuestion) / numberOfQuestion;
-            let min = (1 * numberOfQuestion) / numberOfQuestion;
-            let mid = (3 * numberOfQuestion) / numberOfQuestion;
+            // calcul the min / max and mid
+            /*             let max = ((5 * numberOfQuestion) / numberOfQuestion) * 20;
+                        let min = ((1 * numberOfQuestion) / numberOfQuestion) * 20;
+                        let mid = ((3 * numberOfQuestion) / numberOfQuestion) * 20; */
 
-            if (average < mid) {
+            /* if (average < mid) {
                 return 'A'
             } else if (average > mid) {
                 return 'B'
@@ -49,12 +83,21 @@ export default {
                 return 'N'
             } else {
                 return 'E'
-            }
+            } */
+        },
+
+        async pushAvg() {
+            return this.groups.forEach(elm => {
+                let result = this.calculAvgByGroup(elm.id)
+                elm.avg = result;
+            });
         }
     },
 
-    mounted() {
-        this.calculTrendByGroup(2)
+    async mounted() {
+        await this.pushAvg();
+
+        console.log('this g ' + JSON.stringify(this.groups))
     },
 
     computed: mapGetters({

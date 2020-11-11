@@ -9,6 +9,14 @@
     color: $secondary-color;
 }
 
+.bg-primary {
+    background: $primary-color;
+}
+
+.bg-secondary {
+    background: $secondary-color;
+}
+
 $themes: (
     sticked: (
         'text-color': #1f1f1f,

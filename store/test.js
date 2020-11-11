@@ -14,30 +14,6 @@ export const getters = {
   getTestResult: state => state.test,
   getAllQuestions: state => state.questions,
   checkTest: state => {
-    /*     // count element of test responses array
-    let counterTest = 0;
-    let arrTest = state.test.responses;
-    for (let i = 0; i < arrTest.length; i++) {
-      counterTest++;
-    }
-
-    // count element of total questions
-    let counterQuestions = 0;
-    let arrQuestions = state.questions;
-    for (let i = 0; i < arrQuestions.length; i++) {
-      counterQuestions++;
-    } */
-
-    //compare
-    /*     if (
-      counterTest === counterQuestions &&
-      counterTest + counterQuestions != 0
-    ) {
-      return true;
-    } else {
-      return false;
-    } */
-
     if (
       Object.keys(state.test.responses).length ===
         Object.keys(state.questions).length &&
