@@ -19,7 +19,6 @@
 }
 
 
-
 $themes: (
     sticked: (
         'text-color': #1f1f1f,
@@ -64,14 +63,26 @@ body {
     position: relative;
     min-height: 100vh;
     padding-bottom: 20rem;
+
+    @media(max-width: 640px) {
+        padding-bottom: 26rem;
+    }
 }
 
 h1 {
     @apply text-6xl;
+
+    @media(max-width: 640px) {
+        @apply text-5xl;
+    }
 }
 
 h2 {
     @apply text-4xl;
+
+    @media(max-width: 640px) {
+        @apply text-2xl;
+    }
 }
 
 h3 {
