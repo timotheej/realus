@@ -60,6 +60,12 @@ body {
     font-family:'Fira Sans', sans-serif;
 }
 
+.layout {
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 20rem;
+}
+
 h1 {
     @apply text-6xl;
 }

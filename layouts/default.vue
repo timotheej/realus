@@ -1,9 +1,8 @@
 <template>
-<div>
+<div class="layout">
     <Nuxt />
-
-    <footer class="footer mt-20">
-        <div class="container mx-auto flex">
+    <footer class="footer">
+        <div class="container mx-auto flex flex-wrap">
             <div class="footer__logo flex-grow-0">
                 <div class="h-full flex flex-col justify-end items-start">
                     <svg viewBox="0 0 531 145" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -15,19 +14,19 @@
                     <span>Compare-toi, améliore tes relations</span>
                 </div>
             </div>
-            <div class="footer__nav flex-grow">
-                <ul>
-                    <li>© Copyright 2020 Realus</li>
-                    <li><a href="">Mentions légales</a></li>
-                </ul>
-            </div>
-            <div class="flex-grow">
-                <div class="text-lg font-medium">Inscription à la newsletter</div>
+            <div class="flex-grow mt-4 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-0 sm:px-6 md:px-6 lg:px-8 xl:px-8">
+                <div class="text-lg font-medium">Inscris toi à la newsletter</div>
                 <span class="inline-block text-sm font-light text-gray-700 mb-4">Tiens toi informé des nouvelles fonctionnalités</span>
                 <form class="flex flex-row">
                     <input class="inline-block appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mr-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Entre ton adresse mail">
                     <button class="btn btn--small btn--darky">M'inscrire</button>
                 </form>
+            </div>
+            <div class="footer__nav flex-grow mt-4 sm:mt-4 md:mt-4 lg:mt-0 xl:mt-0">
+                <ul>
+                    <li>© Copyright 2020 Realus</li>
+                    <li><a href="">Mentions légales</a></li>
+                </ul>
             </div>
         </div>
     </footer>
@@ -35,8 +34,24 @@
 </template>
 
 <style lang="scss">
+@import "~/assets/css/main.scss";
+
 .footer {
-    @apply bg-gray-200 h-auto py-6 px-4 sticky bottom-0 w-full;
+    @apply h-auto py-6 px-4 absolute bottom-0 w-full;
+    background-color: $light-color;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: -1rem;
+        left: 0;
+        height: 6rem;
+        width: 100%;
+        background-color: $light-color;
+        transform: skewY(-1deg);
+        z-index: -1;
+
+    }
 
     &__logo {
 
