@@ -3,7 +3,7 @@
     <HeaderPage header-title="Test de personnalité gratuit" />
 
     <div class="container mx-auto rounded-md flex flex-col shadow-2xl p-8 -m-16 z-20 bg-white">
-        <ProgressBar v-if="isDisabled" :percentage="contentProgress" :color="'green'" class="mb-8 h-4"></ProgressBar>
+        <ProgressBar v-if="isDisabled" :percentage="contentProgress" :color="'primary'" class="mb-8 h-4"></ProgressBar>
         <div v-if="loading" id="loading" class="h-20 w-20 m-auto"></div>
         <div v-if="testState" class="flex flex-col">
             <div class="text-2xl font-bold text-center leading-none">{{ currentQuestionObj.title }}</div>
@@ -44,10 +44,10 @@
                 </div>
             </div>
             <div class="flex justify-end">
-                <button v-if="isDisabled && !beforeLastQuestion && !loading" class="btn btn--small btn--secondary" @click="nextQuestion">Suivant
+                <button v-if="isDisabled && !beforeLastQuestion && !loading" :disabled="isActive" class="btn btn--small btn--secondary" @click="nextQuestion">Suivant
                     <fa :icon="['fa', 'angle-right']" class="ml-1 text-base" />
                 </button>
-                <button v-if="beforeLastQuestion" @click="lastQuestion" class="btn btn--small btn--darky">Terminer</button>
+                <button v-if="beforeLastQuestion" @click="lastQuestion" :disabled="isActive" class="btn btn--small btn--darky">Terminer</button>
             </div>
         </div>
     </div>
@@ -82,6 +82,7 @@ export default {
             percentageStart: 0,
             stepProgress: 0,
             contentProgress: 0,
+            active: true,
         }
     },
 
@@ -89,6 +90,8 @@ export default {
         async getQuestions() {
             // get all questions of database
             try {
+                this.disabled = false;
+
                 await this.$store.dispatch('test/getAllQuestions');
                 // push all ids questions
                 this.getAllQuestions.forEach((elm, index) => {
@@ -105,6 +108,10 @@ export default {
                 this.loading = false;
                 this.disabled = false;
                 this.testState = false;
+
+                this.$router.push({
+                    path: '/'
+                })
             }
         },
 
@@ -205,6 +212,9 @@ export default {
         isDisabled: function () {
             return this.disabled;
         },
+        isActive: function () {
+            return this.active;
+        },
         beforeLastQuestion: function () {
             if (this.arrOfIds.length == 0 && this.testState == true) {
                 return this.beforeLast = true;
@@ -213,11 +223,14 @@ export default {
         ...mapGetters({
             getTestId: 'test/getTestId',
             getAllQuestions: 'test/getAllQuestions',
-        })
+        }),
+
     },
 
     watch: {
-
+        selectValue: function () {
+            this.selectValue === null ? this.active = true : this.active = false
+        }
     },
 
     async mounted() {

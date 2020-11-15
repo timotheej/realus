@@ -1,11 +1,11 @@
 <template>
 <div>
     <div class="flex flex-row w-full my-8 items-center">
-        <div class="w-2/12 mx-2"><span class="block text-left text-gray-600">{{ percentageA }}%</span><span :class="`text-${colorTextA}-500`" class="uppercase font-medium block text-left">{{ typeA }}</span></div>
+        <div class="w-2/12 mx-2"><span class="block text-left text-gray-600">{{ percentageA }}%</span><span :class="`text-${colorTextA}`" class="uppercase font-medium block text-left">{{ typeA }}</span></div>
         <div class="w-8/12">
             <ProgressBar :percentage="progressAvg" :color="colorBar" :bgColor="bgBar" class="h-3"></ProgressBar>
         </div>
-        <div class="w-2/12 mx-2"><span class="block text-right text-gray-600">{{ percentageB }}%</span><span :class="`text-${colorTextB}-500`" class="uppercase font-medium block text-right">{{ typeB }}</span></div>
+        <div class="w-2/12 mx-2"><span class="block text-right text-gray-600">{{ percentageB }}%</span><span :class="`text-${colorTextB}`" class="uppercase font-medium block text-right">{{ typeB }}</span></div>
     </div>
     <hr />
 </div>
@@ -65,14 +65,14 @@ export default {
             if (this.percentageA > 50) {
                 return this.color;
             } else {
-                return "gray"
+                return "gray-500"
             }
         },
         colorTextB: function () {
             if (this.percentageB > 50) {
                 return this.color;
             } else {
-                return "gray"
+                return "gray-500"
             }
         }
     },

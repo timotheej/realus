@@ -29,7 +29,7 @@ export default {
                     avg: Number,
                     typeA: "Extraverti",
                     typeB: "Introverti",
-                    color: "purple",
+                    color: "purple-500",
                     trend: null,
                 },
                 {
@@ -37,7 +37,7 @@ export default {
                     avg: Number,
                     typeA: "Sensation",
                     typeB: "Intuition",
-                    color: "yellow",
+                    color: "yellow-500",
                     trend: null,
                 },
                 {
@@ -45,7 +45,7 @@ export default {
                     avg: Number,
                     typeA: "Pensée",
                     typeB: "Sentiment",
-                    color: "orange",
+                    color: "orange-500",
                     trend: null,
                 },
                 {
@@ -53,7 +53,7 @@ export default {
                     avg: Number,
                     typeA: "Jugement",
                     typeB: "Perception",
-                    color: "green",
+                    color: "green-500",
                     trend: null,
                 }
             ]
@@ -76,6 +76,7 @@ export default {
             let numberOfQuestion = Object.keys(byGroup).length;
 
             // averages the sums (multiple by 20 to have a result out of 100)
+            console.log('avg ' + sum / (numberOfQuestion))
             return ((sum / numberOfQuestion) * 20);
         },
 
