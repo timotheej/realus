@@ -2,7 +2,7 @@
 <nav class="nav" :class="[sticked ? 'sticked' : 'noSticked', scrolled ? 'onScroll': '']" v-on="handleScroll()">
     <div class="nav__wrapper">
         <div class="container nav__container">
-            <div class="nav__logo divide-x">
+            <div class="nav__logo sm:divide-x md:divide-x lg:divide-x xl:divide-x">
                 <div class="nav__img">
                     <NuxtLink to="/">
                         <svg viewBox="0 0 104 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,14 +24,22 @@
                 </div>
             </div>
 
-            <div class="nav__toggle lg:hidden">
-                <fa :icon="['fas', 'bars']" class="text-3xl text-white" />
+            <div class="nav__toggle lg:hidden" @click.prevent="toggle">
+                <fa :icon="['fas', 'bars']" v-if="!isBurgerActive" class="text-3xl" />
+                <fa :icon="['fas', 'times']" v-if="isBurgerActive" class="text-3xl" />
             </div>
 
-            <div class="nav__mobile hidden">
-
-            </div>
         </div>
+        <transition name="slide">
+            <div class="nav__mobile" v-if="isBurgerActive">
+                <ul>
+                    <li><a href="">Contact</a></li>
+                    <li><a href="">Connexion</a></li>
+                    <li><a href="" class="">Inscription</a></li>
+                </ul>
+            </div>
+        </transition>
+    </div>
     </div>
 </nav>
 </template>
@@ -43,7 +51,8 @@ export default {
             limitPosition: 100,
             scrolled: false,
             lastPosition: 0,
-            sticked: false
+            sticked: false,
+            isBurgerActive: false,
         }
     },
     methods: {
@@ -51,10 +60,12 @@ export default {
             if (this.lastPosition < window.scrollY && this.limitPosition < window.scrollY) {
                 this.scrolled = true;
                 this.sticked = true;
+                this.isBurgerActive = false;
             }
 
             if (this.lastPosition > window.scrollY) {
                 this.scrolled = false;
+                this.isBurgerActive = false;
             }
 
             if (window.scrollY < this.limitPosition) {
@@ -64,13 +75,22 @@ export default {
             this.lastPosition = window.scrollY;
 
         },
-
+        handleResize() {
+            if (window.innerWidth > 1024) {
+                this.isBurgerActive = false;
+            }
+        },
+        toggle() {
+            this.isBurgerActive = !this.isBurgerActive
+        }
     },
     created() {
         window.addEventListener("scroll", this.handleScroll);
+        window.addEventListener("resize", this.handleResize);
     },
     destroyed() {
         window.removeEventListener("scroll", this.handleScroll);
+        window.removeEventListener("resize", this.handleResize)
     }
 }
 </script>
@@ -100,7 +120,7 @@ export default {
         animation: 1s appear;
 
         span {
-            @apply inline-block mt-2 ml-4 pl-4 text-sm font-light;
+            @apply mt-2 ml-4 pl-4 text-sm font-light;
 
             @include theme() {
                 color: theme-get('text-color');
@@ -172,16 +192,40 @@ export default {
     }
 
     &__toggle {
-        @apply;
+        @include theme() {
+            color: theme-get('text-color');
+        }
     }
 
     &__mobile {
-        @apply absolute;
+        @apply absolute shadow-md;
         background: white;
         left: 0;
-        height: 100px;
+        height: auto;
         width: 100%;
         top: 5rem;
+        transition: .3s;
+
+        ul {
+            @apply flex flex-col;
+
+            li {
+
+                &:not(:last-child) {
+                    border-bottom: solid 1px #eee;
+                }
+
+                a {
+                    @apply px-4 py-4 block;
+                    color: $primary-color;
+                    transition: .3s;
+
+                    &:hover {
+                        background: $light-color;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -193,5 +237,16 @@ export default {
     0% {
         opacity: 0;
     }
+}
+
+.slide-enter-active,
+.slide-leave-active {
+    transition: transform 0.2s ease;
+}
+
+.slide-enter,
+.slide-leave-to {
+    transform: translateX(-100%);
+    transition: all 150ms ease-in 0s
 }
 </style>

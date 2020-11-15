@@ -39,7 +39,8 @@ export default {
               "faClipboardList",
               "faSync",
               "faChevronRight",
-              "faAngleRight"
+              "faAngleRight",
+              "faTimes"
             ]
           }
         ]

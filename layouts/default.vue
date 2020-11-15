@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="flex-grow mt-4 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-0 sm:px-6 md:px-6 lg:px-8 xl:px-8">
-                <div class="text-lg font-medium">Inscris toi à la newsletter</div>
+                <div class="text-lg font-medium">Inscris-toi à la newsletter</div>
                 <span class="inline-block text-sm font-light text-gray-700 mb-4">Tiens toi informé des nouvelles fonctionnalités</span>
                 <form class="flex flex-row">
                     <input class="inline-block appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mr-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Entre ton adresse mail">
@@ -26,6 +26,7 @@
                 <ul>
                     <li>© Copyright 2020 Realus</li>
                     <li><a href="">Mentions légales</a></li>
+                    <li><span class="text-gray-500">build 0.0.1</span></li>
                 </ul>
             </div>
         </div>
