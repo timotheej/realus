@@ -105,10 +105,6 @@ export default {
                 await this.$store.dispatch('test/createTest');
                 return 'success'
             } catch (e) {
-                this.loading = false;
-                this.disabled = false;
-                this.testState = false;
-
                 this.$router.push({
                     path: '/'
                 })
@@ -126,9 +122,11 @@ export default {
                 this.disabled = true;
                 this.loading = false;
             } else {
-                this.disabled = false;
-                this.testState = false;
+                this.$router.push({
+                    path: '/'
+                })
             }
+
             this.selectValue = null;
         },
 
@@ -154,7 +152,9 @@ export default {
                 });
                 return 'success'
             } catch (e) {
-                this.loading = false;
+                this.$router.push({
+                    path: '/'
+                })
             }
         },
 
@@ -172,8 +172,9 @@ export default {
                 await this.selectQuestion(this.randomizeNumber());
                 await this.currentQuestion();
             } else {
-                this.disabled = false;
-                this.testState = false;
+                this.$router.push({
+                    path: '/'
+                })
             }
         },
 
@@ -216,9 +217,7 @@ export default {
             return this.active;
         },
         beforeLastQuestion: function () {
-            if (this.arrOfIds.length == 0 && this.testState == true) {
-                return this.beforeLast = true;
-            }
+            return this.arrOfIds.length == 0 && this.testState == true ? this.beforeLast = true : ''
         },
         ...mapGetters({
             getTestId: 'test/getTestId',
