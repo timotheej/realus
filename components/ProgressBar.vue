@@ -14,11 +14,11 @@ export default {
     props: {
         color: {
             type: String,
-            default: "gray-500"
+            default: "gray-400"
         },
         bgColor: {
             type: String,
-            default: "gray-500"
+            default: "gray-400"
         },
         percentage: {
             type: Number,

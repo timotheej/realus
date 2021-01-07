@@ -52,7 +52,7 @@ export default {
   modules: ["@nuxtjs/axios"],
 
   axios: {
-    // proxy: true
+    baseURL: "https://realus-api.herokuapp.com"
   },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},

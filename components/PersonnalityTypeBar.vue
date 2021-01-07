@@ -65,14 +65,14 @@ export default {
             if (this.percentageA > 50) {
                 return this.color;
             } else {
-                return "gray-500"
+                return "gray-400"
             }
         },
         colorTextB: function () {
             if (this.percentageB > 50) {
                 return this.color;
             } else {
-                return "gray-500"
+                return "gray-400"
             }
         }
     },

@@ -45,20 +45,18 @@ export const mutations = {
 // actions
 export const actions = {
   async createTest({ commit }) {
-    const response = await this.$axios.$post(
-      "http://localhost:3100/t/createTest"
-    );
+    const response = await this.$axios.$post("/t/createTest");
     commit("NEW_TEST", response);
   },
 
   async getAllQuestions({ commit }) {
-    const response = await this.$axios.$get("http://localhost:3100/q");
+    const response = await this.$axios.$get("/q");
     commit("ALL_QUESTIONS", response);
   },
 
   async pushQuestion({ commit, state }, data) {
     const response = await this.$axios.$put(
-      "http://localhost:3100/t/pushResponse/" + state.test._id,
+      "/t/pushResponse/" + state.test._id,
       {
         question_id: data.question_id,
         response: data.response,
